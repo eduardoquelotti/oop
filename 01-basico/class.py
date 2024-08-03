@@ -26,7 +26,7 @@ class ProcessadorCSV:
         return self.df
 
 # Exemplo de uso
-arquivo_csv = './exemplo.csv'  # substitua 'exemplo.csv' pelo caminho do seu arquivo CSV
+arquivo_csv = 'exemplo.csv'  # substitua 'exemplo.csv' pelo caminho do seu arquivo CSV
 estado_filtrado = 'SP'  # estado que você quer filtrar
 
 processador = ProcessadorCSV(arquivo_csv)
