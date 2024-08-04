@@ -1,3 +1,4 @@
-data,estado,valor
-31/12/2023,SP,350
-01/03/2025,MG,450
+data,estado,valor,categoria
+31/12/2023,SP,350,compra
+01/03/2025,MG,450,venda
+01/01/2025,SP,250,venda
