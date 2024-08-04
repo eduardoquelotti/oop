@@ -29,8 +29,18 @@ print("")
 print(">>>>> EXEMPLO 3")
 
 processador = ProcessadorCSV(arquivo_csv)
-df_filtrado_generico_2 = processador.processar_generico_2(colunas, atributos)
+df_filtrado_generico_sem_recursividade = processador.processar_generico_sem_recursividade(colunas, atributos)
 
-print(df_filtrado_generico_2)
+print(df_filtrado_generico_sem_recursividade)
+
+
+# Exemplo de uso
+print("")
+print(">>>>> EXEMPLO 4")
+
+processador = ProcessadorCSV(arquivo_csv)
+df_filtrado_generico_com_recursividade = processador.processar_generico_com_recursividade(colunas, atributos)
+
+print(df_filtrado_generico_com_recursividade)
 
 

@@ -21,7 +21,7 @@ class ProcessadorCSV:
         # Filtrar as linhas pela coluna e atributo desejado
         self.df = self.df[self.df[coluna] == atributo]
 
-    def filtrar_por_colunas(self, colunas, atributos):
+    def filtrar_por_colunas_sem_recursividade(self, colunas, atributos):
         # Filtrar as linhas do dataframe a partir de um vetor de colunas e atributos
         if len(colunas) != len(atributos):
             raise ValueError('Informe um mesmo número de colunas e atributos')
@@ -34,6 +34,28 @@ class ProcessadorCSV:
             for coluna, atributo in zip(colunas, atributos):
                 self.df = self.df[self.df[coluna] == atributo]
     
+    def filtrar_por_colunas_com_recursividade(self, colunas, atributos, df=None):
+        # Verificar se o número de colunas e atributos são iguais
+        if len(colunas) != len(atributos):
+            raise ValueError('Informe um mesmo número de colunas e atributos')
+        
+        # Inicializar o DataFrame na primeira chamada
+        if df is None:
+            df = self.df
+        
+        # Base da recursão: se não há mais colunas para filtrar, retorne o DataFrame atual
+        if len(colunas) == 0:
+            return df
+        
+        coluna_atual = colunas[0]
+        atributo_atual = atributos[0]
+
+        # Filtrar o DataFrame atual
+        df_filtrado = df[df[coluna_atual] == atributo_atual]
+
+        # Continuar a recursão com o DataFrame filtrado
+        return self.filtrar_por_colunas_com_recursividade(colunas[1:], atributos[1:], df_filtrado)
+
     def processar_por_estado(self, estado):
         # Carregar CSV, remover células vazias e filtrar por estado
         self.carregar_csv()
@@ -50,10 +72,19 @@ class ProcessadorCSV:
         
         return self.df
     
-    def processar_generico_2(self, colunas, atributos):
+    def processar_generico_sem_recursividade(self, colunas, atributos):
         # Carregar CSV, remover células vazias e filtrar por estado
         self.carregar_csv()
         self.remover_celulas_vazias()
-        self.filtrar_por_colunas(colunas, atributos)
+        self.filtrar_por_colunas_sem_recursividade(colunas, atributos)
         
         return self.df
+    
+    def processar_generico_com_recursividade(self, colunas, atributos):
+        # Carregar CSV, remover células vazias e filtrar por estado
+        self.carregar_csv()
+        self.remover_celulas_vazias()
+        # Corrigir para retornar o DataFrame filtrado pela função recursiva
+        df_filtrado = self.filtrar_por_colunas_com_recursividade(colunas, atributos)
+        
+        return df_filtrado
